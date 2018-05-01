@@ -27,6 +27,28 @@
 			</div>
 		</div>
 	</div>
+
+  	<div>
+
+  		<div v-for=" (e, idx) in List">
+				<div :class="['a'+idx, 'box']" :style="{'background-image': 'url('+e.bgUrl+')', 'background-position': '50%'+ bgTop + 'px'}">
+					<p>这里是{{ e.time }}</p>
+
+					<div class="left" :style="{'margin-top': top + 'px'}" >
+						<img v-for="k in e.lImg" :src="k" alt="" @click="clickImg($event)">
+					</div>
+
+					<div class="right" :style="{'margin-top': top + 'px'}">
+						<img  v-for="k in e.rImg" :src="k" alt="" @click="clickImg($event)">
+					</div>
+				</div>
+	 		</div>
+		 
+			<div id="myModal" class="modal">
+				<img :src="imgSrc" class="modal-content" @click="closeModal()">
+			</div>
+
+  	</div>
 </template>
 
 <script>
@@ -267,6 +289,36 @@ export default {
 	font-size: 1.5rem;
 	text-shadow: 3px 4px 2px black;
 }
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: hidden; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.9); /* Black w/ opacity */
+}
+
+.modal-content {
+  margin: auto;
+  display: block;
+  overflow: auto;
+  animation-name: zoom;
+  animation-duration: 0.6s;
+}
+
+@keyframes zoom {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
 .box {
 	position: relative;
 	height: 100%;
@@ -280,12 +332,12 @@ export default {
 	z-index: 2;
 }
 .right {
-	display: inline-block;
-	width: 30%;
-	transition: all .6s ease;
+  display: inline-block;
+  width: 30%;
+  transition: all 0.6s ease;
 }
 .a4 .left {
-	vertical-align: baseline;
+  vertical-align: baseline;
 }
 .left {
 	vertical-align: top;
@@ -293,28 +345,38 @@ export default {
 	width: 30%;
 	transition: all .6s ease;
 }
-
 .left img {
 	width: 100%;
 }
- .right img {
-	width: 100%;
- }
+.right img {
+    width: 100%;
+}
 p {
 	color: white;
 	font-family: 'fzxk';
+    vertical-align: top;
+    display: inline-block;
+    width: 40%;
+    transition: all 0.6s ease;
 }
-h1, h2 {
-  font-weight: normal;
+
+.left img:hover {
+  background: rgba(25, 55, 255, 0.7);
+  z-index: 999;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
+
+.left img {
+  width: 100%;
 }
-li {
-  display: inline-block;
-  margin: 0 10px;
+
+.right img {
+  width: 100%;
 }
+
+p {
+  color: white;
+}
+
 a {
   color: #42b983;
 }
