@@ -2,8 +2,9 @@
 	<div class="hello" :style="{'background-image': 'url('+bgUrl+')','margin-top': top + 'px','background-size': 'cover','background-repeat': 'no-repeat'}">
 		<img src="/static/main.png" class="main">
 		<div v-for=" (e, idx) in List" :class="['a'+idx, 'box']">
-      <div id="myModal" class="modal"  @click="closeModal()">
-        <img :src="imgSrc" class="modal-content">
+
+      <div id="myModal" class="modal"  @click="closeModal()" @mousemove="mouse($event)">
+        <img :src="imgSrc" class="modal-content" id="coords">
       </div>
 
 			<div class="text">
@@ -200,7 +201,9 @@ export default {
       top: 0,
       bgTop: 0,
       bgUrl: "/static/BG.png",
-      imgSrc: ""
+      imgSrc: "",
+      clientX: 0,
+      clientY: 0
     };
   },
   methods: {
@@ -217,10 +220,29 @@ export default {
       var modal = document.getElementById("myModal");
       modal.style.display = "block";
       this.imgSrc = e.currentTarget.src;
+      console.log(this.clientX, this.clientY);
     },
+
     closeModal(e) {
       var modal = document.getElementById("myModal");
       modal.style.display = "none";
+      this.clientX = 0;
+      this.clientY = 0;
+    },
+
+    mouse(e) {
+      if (this.clientX === 0 || this.clientY === 0) {
+        this.clientX = e.clientX;
+        this.clientY = e.clientY;
+      }
+      var X = e.clientX - this.clientX;
+      var Y = e.clientY - this.clientY;
+
+      this.clientX = e.clientX;
+      this.clientY = e.clientY;
+
+      document.getElementById("myModal").scrollTop += Y * 3;
+      document.getElementById("myModal").scrollLeft += X * 3;
     }
   },
   mounted() {
@@ -250,6 +272,7 @@ export default {
   right: 0;
   bottom: 40%;
   margin: auto;
+  pointer-events: none;
 }
 .text {
   position: absolute;
@@ -260,6 +283,7 @@ export default {
   font-size: 1.5rem;
   text-shadow: 3px 4px 2px black;
 }
+
 .modal {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
@@ -268,17 +292,24 @@ export default {
   top: 0;
   width: 100%; /* Full width */
   height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
+  overflow: hidden; /* Enable scroll if needed */
   background-color: rgb(0, 0, 0); /* Fallback color */
   background-color: rgba(0, 0, 0, 0.9); /* Black w/ opacity */
+  /* align-items: center; */
+  /* top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); */
 }
 
 .modal-content {
   margin: auto;
-  display: block;
-  overflow: auto;
+  top: 10%;
+  /* position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); */
   animation-name: zoom;
-  animation-duration: 0.6s;
+  animation-duration: 1s;
 }
 
 @keyframes zoom {
@@ -301,6 +332,7 @@ export default {
 
 .surface {
   position: absolute;
+  pointer-events: none;
   z-index: 2;
 }
 
