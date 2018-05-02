@@ -1,15 +1,15 @@
 <template>
-	<div class="hello" :style="{'background-image': 'url('+bgUrl+')','margin-top': top + 'px','background-size': 'cover','background-repeat': 'no-repeat'}">
-		<img src="/static/main.png" class="main">
+	<div class="hello" :style="{'background-image': 'url('+bgUrl+')','background-position': '0px ' + bgTop+'px','background-size': 'contain','background-repeat': 'no-repeat'}">
+		<img src="/static/main.png" class="main" :style="{'transition': 'all .5s ease','transform': 'translateY('+top+'5%)'}">
 		<div v-for=" (e, idx) in List" :class="['a'+idx, 'box']">
-			<div class="text">
-				<div :class="a.year" v-for="a in e.text">
+			<div class="text" :style="{'margin-top': top*2 +'%'}">
+				<div :class="'y-'+a.year" v-for="a in e.text">
 					<p v-for="b in a.info" >
 						{{ b }}
 					</p>
 				</div>
 			</div>
-			<div class="surface">
+			<div class="surface" :style="{'top': top*1.5 +'%'}">
 				<div class="left">
 					<img v-for="k in e.lImg.surface" :src="k" alt="">
 				</div>
@@ -17,7 +17,7 @@
 					<img  v-for="k in e.rImg.surface" :src="k" alt="">
 				</div>
 			</div>
-			<div class="bottom">
+			<div class="bottom" :style="{'transform': 'translateY('+ top +'%)'}">
 				<div class="left">
 					<img v-for="k in e.lImg.bottom" :src="k" alt="">
 				</div>
@@ -230,21 +230,51 @@ export default {
 			let cHeight = document.documentElement.clientHeight;
 			let height = document.documentElement.scrollHeight;
 			let scroll = document.documentElement.scrollTop;
-			console.log(scroll + cHeight !== height)
+			// console.log(scroll + cHeight !== height)
 			if(scroll + cHeight !== height){
-				this.top = -scroll/20;
-				this.bgTop = -scroll/20;
+				this.top = -scroll/80;
+				this.bgTop = scroll;
 			}
 		}
 	},
 	mounted() {
-	window.addEventListener('scroll', this.slider)
+	    window.addEventListener('scroll', this.slider)
 	}
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.surface {
+	position: absolute;
+	z-index: 2;
+    pointer-events: none;
+    transition: all .6s ease;
+}
+.bottom {
+    transition: all .5s ease;
+}
+.right {
+	display: inline-block;
+	width: 30%;
+}
+
+.left {
+	vertical-align: top;
+	display: inline-block;
+	width: 30%;
+}
+.left img {
+	width: 100%;
+    float: right;
+}
+.right img {
+	width: 100%;
+    float: left;
+}
+img {
+    cursor: pointer;
+}
 @font-face {
 	font-family: fzxk;
 	src: url('/static/方正行楷_GBK.ttf')
@@ -256,15 +286,18 @@ export default {
     left: 0;
     top: 0;
     right: 0;
-    bottom: 40%;
+    bottom: 32%;
     margin: auto;
 }
 .text {
 	position: absolute;
 	z-index: 3;
+    text-align: left;
+    pointer-events: none;
+    transition: all .5s ease;
 }
 .text p {
-	font-size: 1.5rem;
+	font-size: 2rem;
 	text-shadow: 3px 4px 2px black;
 }
 .box {
@@ -275,31 +308,221 @@ export default {
 	background-repeat: no-repeat;
 	transition: all .6s ease;
 }
-.surface {
-	position: absolute;
-	z-index: 2;
+/******************第一块*********************/
+.a0 {
+    padding: 5% 0 10% 0;
 }
-.right {
-	display: inline-block;
-	width: 30%;
-	transition: all .6s ease;
+.a0 .bottom .left img:nth-child(1) {
+    width: 90%;
+
 }
-.a4 .left {
-	vertical-align: baseline;
+.a0 .bottom .left img:nth-child(2) {
+    width: 80%;
+    margin-top: 3%;
 }
-.left {
-	vertical-align: top;
-	display: inline-block;
-	width: 30%;
-	transition: all .6s ease;
+.a0 .bottom .left img:nth-child(3) {
+    width: 120%;
+    margin-top: 3%;
+}
+.a0 .bottom .right img:nth-child(1) {
+    width: 80%;
+    margin-top: -5%;
+}
+.a0 .bottom .right img:nth-child(2) {
+    width: 60%;
+    margin-top: 1%;
+}
+.a0 .bottom .right img:nth-child(3) {
+    width: 100%;
+    margin-top: 1%;
+}
+.a0 .bottom .right img:nth-child(4) {
+    width: 67%;
+    margin-top: 1%;
+}
+.surface div img {
+    box-shadow: 5px -1px 8px 3px #00000066;
+}
+.a0 .surface .left {
+    width: 16%;
+    margin: 28% 8% 0 0;
+}
+.a0 .surface .right img:nth-child(1) {
+    width: 50%;
+    margin: 38% 0 0 55%;
+}
+.a0 .surface .right img:nth-child(2) {
+    width: 60%;
+    margin: 10% 0 0 65%;
 }
 
-.left img {
-	width: 100%;
+.a0 .text {
+    left: 0%;
+    right: 0;
+    top: 50%;
+    bottom: 0;
+    margin: auto;
 }
- .right img {
-	width: 100%;
- }
+.a0 .text .y-1958 {
+    margin: 0 0 0 62%;
+}
+
+.a0 .text .y-1958 {
+    margin: 0 0 0 62%;
+}
+.a0 .text .y-1958 p:nth-child(3) {
+    font-size: 3rem;
+}
+.a0 .text .y-1962 {
+    margin: -3% 0 0 20%;
+}
+.a0 .text .y-1962 p:nth-child(2) {
+    font-size: 3rem;
+}
+.a0 .text .y-1995 {
+    text-align: center;
+    margin: 10% 0 0 0;
+}
+.a0 .text .y-1995 p:nth-child(6) {
+    font-size: 4rem;
+}
+/*//////////////////////////////////// */
+
+/*********************第二块*******************/
+.a1 .bottom .left img:nth-child(1) {
+    width: 120%;
+
+}
+.a1 .bottom .left img:nth-child(2) {
+    width: 140%;
+    margin-top: 3%;
+}
+.a1 .bottom .right img:nth-child(1) {
+    width: 100%;
+    margin-top: -5%;
+}
+.a1 .bottom .right img:nth-child(2) {
+    width: 120%;
+    margin-top: 1%;
+}
+.a1 .text {
+    left: 20%;
+    right: 0;
+    top: 40%;
+    bottom: 0;
+    margin: auto;
+}
+.a1 .text .y-2008a {
+
+}
+
+.a1 .text .y-2008b {
+    margin: -28% 0 0 51%;
+}
+.a1 .text .y-2012 {
+    margin: 12% 0 0 50%;
+}
+.a1 .text .y-2014 {
+       
+}
+.a1 .text .y-2015a {
+    margin: 0% 0 0 50%; 
+}
+
+/*////////////////////////////////////*/
+
+/**********************第三块************************/
+
+.a2 {
+    margin-top: 2%;
+}
+.a2 .bottom .left img {
+    width: 200%;
+    transform: translateX(50%);
+}
+.a2 .surface .left img {
+    width: 115%;
+    margin: 120% 0 0 0;
+}
+.a2 .surface .right img {
+    width: 105%;
+    margin: 100% 0 0 0;
+    transform: rotate(180deg)
+}
+
+.a2 .text {
+    left: 15%;
+    right: 0;
+    top: 60%;
+    bottom: 0;
+    margin: auto;
+}
+
+.a2 .text .y-2017a {
+    margin: 59% 0 0 7%;
+}
+
+/*///////////////////////////////////////////////////*/
+
+
+
+/**********************第四块************************/
+
+.a3 {
+    margin-top: 28%;
+}
+
+.a3 .bottom .left img:nth-child(1) {
+    width: 105%;
+}
+.a3 .bottom .left img:nth-child(2) {
+    width: 80%;
+    margin-top: 3%;
+}
+.a3 .bottom .left img:nth-child(3) {
+    width: 110%;
+    margin-top: 3%;
+}
+.a3 .bottom .right img:nth-child(1) {
+    width: 105%;
+    margin-top: -30%;
+}
+.a3 .bottom .right img:nth-child(2) {
+    width: 105%;
+    margin-top: 3%;
+}
+.a3 .bottom .right img:nth-child(3) {
+    width: 110%;
+    margin-top: 10%;
+}
+.a3 .surface .right img:nth-child(1) {
+    width: 80%;
+    margin: 22% 0 0 40%;
+}
+.a3 .surface .right img:nth-child(2) {
+    width: 80%;
+    margin: 104% 0 0 32%;
+}
+.a3 .text {
+    left: 4%;
+    right: 0;
+    top: 90%;
+    bottom: 0;
+    margin: auto;
+}
+.a3 .text .y-2017b {
+    margin-left: 20%;
+}
+.a3 .text .y-2018a {
+    margin: 6% 0 0 50%;
+}
+.a3 .text .y-2018b {
+    margin: 3% 0 0 20%;
+}
+/*///////////////////////////////////////////////////*/
+
+
+
 p {
 	color: white;
 	font-family: 'fzxk';
