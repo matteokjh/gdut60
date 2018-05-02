@@ -1,7 +1,7 @@
 <template>
 <div style="position: relative;">
 	<div class="hello" :style="{'background-attachment':'fixed','background-image': 'url('+bgUrl+')','background-size': 'cover','background-repeat': 'no-repeat'}">
-		<img src="/static/main.png" class="main" :style="{'transition': 'all .5s ease','transform': 'translateY('+top*4+'%)','pointer-events':'none'}">
+		<img src="http://ots4cfy06.bkt.clouddn.com/0/main.png" class="main" :style="{'transition': 'all .5s ease','transform': 'translateY('+top*4+'%)','pointer-events':'none'}">
 		<div v-for=" (e, idx) in List" :class="['a'+idx, 'box']">
 			<div class="text" :style="{'margin-top': top*2 +'%'}">
 				<div :class="'y-'+a.year" v-for="a in e.text">
@@ -32,7 +32,7 @@
             <img :src="imgSrc" class="modal-content" id="coords">
         </div>
 	</div>
-    <img src="/static/main.png" class="footer">
+    <img src="http://ots4cfy06.bkt.clouddn.com/0/main.png" class="footer">
 </div>
 
     
@@ -73,24 +73,24 @@ export default {
 					],
 					lImg: {
 						bottom: [
-							'/static/1/l1.jpg',
-							'/static/1/l2.jpg',
-							'/static/1/l3.jpg'
+							'http://ots4cfy06.bkt.clouddn.com/1/l1.jpg',
+							'http://ots4cfy06.bkt.clouddn.com/1/l2.jpg',
+							'http://ots4cfy06.bkt.clouddn.com/1/l3.jpg'
 						],
 						surface: [
-							'/static/1/l4.jpg'
+							'http://ots4cfy06.bkt.clouddn.com/1/l4.jpg'
 						]
 					},
 					rImg: {
 						bottom: [
-							'/static/1/r1.jpg',
-							'/static/1/r2.jpg',
-							'/static/1/r3.jpg',
-							'/static/1/r4.jpg'
+							'http://ots4cfy06.bkt.clouddn.com/1/r1.jpg',
+							'http://ots4cfy06.bkt.clouddn.com/1/r2.jpg',
+							'http://ots4cfy06.bkt.clouddn.com/1/r3.jpg',
+							'http://ots4cfy06.bkt.clouddn.com/1/r4.jpg'
 						],
 						surface: [
-							'/static/1/r5.jpg',
-							'/static/1/r6.jpg'
+							'http://ots4cfy06.bkt.clouddn.com/1/r5.jpg',
+							'http://ots4cfy06.bkt.clouddn.com/1/r6.jpg'
 						]
 					}
 				},{ //////////////////     第二块       ///////////////////
@@ -137,15 +137,15 @@ export default {
 					],
 					lImg: {
 						bottom: [
-							'/static/2/l1.jpg',
-							'/static/2/l2.jpg'
+							'http://ots4cfy06.bkt.clouddn.com/2/l1.jpg',
+							'http://ots4cfy06.bkt.clouddn.com/2/l2.jpg'
 						]
 
 					},
 					rImg: {
 						bottom: [
-							'/static/2/r1.jpg',
-							'/static/2/r2.jpg'
+							'http://ots4cfy06.bkt.clouddn.com/2/r1.jpg',
+							'http://ots4cfy06.bkt.clouddn.com/2/r2.jpg'
 						]
 					}
 				},{//////////////////     第三块       ///////////////////
@@ -170,15 +170,15 @@ export default {
 					],
 					lImg: {
 						bottom: [
-							'/static/3/l1.jpg'
+							'http://ots4cfy06.bkt.clouddn.com/3/l1.jpg'
 						],
 						surface: [
-							'/static/3/l2.jpg'
+							'http://ots4cfy06.bkt.clouddn.com/3/l2.jpg'
 						]
 					},
 					rImg: {
 						surface: [
-							'/static/3/r1.jpg'
+							'http://ots4cfy06.bkt.clouddn.com/3/r1.jpg'
 						]
 					}
 				},{//////////////////     第四块       ///////////////////
@@ -211,27 +211,27 @@ export default {
 					],
 					lImg: {
 						bottom: [
-							'/static/4/l1.png',
-							'/static/4/l2.jpg',
-							'/static/4/l3.jpg'
+							'http://ots4cfy06.bkt.clouddn.com/4/l1.png',
+							'http://ots4cfy06.bkt.clouddn.com/4/l2.jpg',
+							'http://ots4cfy06.bkt.clouddn.com/4/l3.jpg'
 						]
 					},
 					rImg: {
 						bottom: [
-							'/static/4/r1.jpg',
-							'/static/4/r2.png',
-							'/static/4/r4.jpg'
+							'http://ots4cfy06.bkt.clouddn.com/4/r1.jpg',
+							'http://ots4cfy06.bkt.clouddn.com/4/r2.png',
+							'http://ots4cfy06.bkt.clouddn.com/4/r4.jpg'
 						],
 						surface: [
-							'/static/4/r3.png',
-							'/static/4/r5.png'
+							'http://ots4cfy06.bkt.clouddn.com/4/r3.png',
+							'http://ots4cfy06.bkt.clouddn.com/4/r5.png'
 						]
 					}
 			}
 			],
 			top: 0,
 			bgTop: 0,
-			bgUrl: '/static/BG.png',
+			bgUrl: 'http://ots4cfy06.bkt.clouddn.com/BG.png',
             imgSrc: "",
             clientX: 0,
             clientY: 0
@@ -263,6 +263,7 @@ export default {
             document.body.style.overflow = '';
             this.clientX = 0;
             this.clientY = 0;
+			this.imgSrc = '';
         },
 
         mouse(e) {
@@ -276,8 +277,8 @@ export default {
             this.clientX = e.clientX;
             this.clientY = e.clientY;
 
-            document.getElementById("myModal").scrollTop += Y * 6;
-            document.getElementById("myModal").scrollLeft += X * 6;
+            document.getElementById("myModal").scrollTop += Y * 3;
+            document.getElementById("myModal").scrollLeft += X * 3;
         }
 	},
 	mounted() {
@@ -367,7 +368,7 @@ img {
 }
 @font-face {
 	font-family: fzxk;
-	src: url('/static/方正行楷_GBK.ttf')
+	src: url('http://ots4cfy06.bkt.clouddn.com/0/%E6%96%B9%E6%AD%A3%E8%A1%8C%E6%A5%B7_GBK.ttf')
 }
 .main {
 	position: absolute;
