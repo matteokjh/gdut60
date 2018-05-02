@@ -18,4 +18,10 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+
+}
 </style>

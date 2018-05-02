@@ -1,6 +1,7 @@
 <template>
-	<div class="hello" :style="{'background-image': 'url('+bgUrl+')','background-position': '0px ' + bgTop+'px','background-size': 'contain','background-repeat': 'no-repeat'}">
-		<img src="/static/main.png" class="main" :style="{'transition': 'all .5s ease','transform': 'translateY('+top+'5%)'}">
+<div style="position: relative;">
+	<div class="hello" :style="{'background-attachment':'fixed','background-image': 'url('+bgUrl+')','background-size': 'cover','background-repeat': 'no-repeat'}">
+		<img src="/static/main.png" class="main" :style="{'transition': 'all .5s ease','transform': 'translateY('+top*4+'%)','pointer-events':'none'}">
 		<div v-for=" (e, idx) in List" :class="['a'+idx, 'box']">
 			<div class="text" :style="{'margin-top': top*2 +'%'}">
 				<div :class="'y-'+a.year" v-for="a in e.text">
@@ -11,22 +12,30 @@
 			</div>
 			<div class="surface" :style="{'top': top*1.5 +'%'}">
 				<div class="left">
-					<img v-for="k in e.lImg.surface" :src="k" alt="">
+					<img v-for="k in e.lImg.surface" :src="k" alt="" @click="clickImg($event)">
 				</div>
 				<div class="right">
-					<img  v-for="k in e.rImg.surface" :src="k" alt="">
+					<img  v-for="k in e.rImg.surface" :src="k" alt="" @click="clickImg($event)">
 				</div>
 			</div>
 			<div class="bottom" :style="{'transform': 'translateY('+ top +'%)'}">
 				<div class="left">
-					<img v-for="k in e.lImg.bottom" :src="k" alt="">
+					<img v-for="k in e.lImg.bottom" :src="k" alt="" @click="clickImg($event)">
 				</div>
 				<div class="right">
-					<img  v-for="k in e.rImg.bottom" :src="k" alt="">
+					<img  v-for="k in e.rImg.bottom" :src="k" alt="" @click="clickImg($event)">
 				</div>
 			</div>
 		</div>
+
+        <div id="myModal" class="modal"  @click="closeModal()" @mousemove="mouse($event)">
+            <img :src="imgSrc" class="modal-content" id="coords">
+        </div>
 	</div>
+    <img src="/static/main.png" class="footer">
+</div>
+
+    
 </template>
 
 <script>
@@ -222,7 +231,10 @@ export default {
 			],
 			top: 0,
 			bgTop: 0,
-			bgUrl: '/static/BG.png'
+			bgUrl: '/static/BG.png',
+            imgSrc: "",
+            clientX: 0,
+            clientY: 0
 		}
 	},
 	methods: {
@@ -235,7 +247,38 @@ export default {
 				this.top = -scroll/80;
 				this.bgTop = scroll;
 			}
-		}
+		},
+        clickImg(e) {
+            var modal = document.getElementById("myModal");
+            modal.style.display = "block";
+            this.imgSrc = e.currentTarget.src;
+            document.body.style.overflow = 'hidden';
+            console.log()
+            console.log(this.clientX, this.clientY);
+        },
+
+        closeModal(e) {
+            var modal = document.getElementById("myModal");
+            modal.style.display = "none";
+            document.body.style.overflow = '';
+            this.clientX = 0;
+            this.clientY = 0;
+        },
+
+        mouse(e) {
+            if (this.clientX === 0 || this.clientY === 0) {
+                this.clientX = e.clientX;
+                this.clientY = e.clientY;
+            }
+            var X = e.clientX - this.clientX;
+            var Y = e.clientY - this.clientY;
+
+            this.clientX = e.clientX;
+            this.clientY = e.clientY;
+
+            document.getElementById("myModal").scrollTop += Y * 6;
+            document.getElementById("myModal").scrollLeft += X * 6;
+        }
 	},
 	mounted() {
 	    window.addEventListener('scroll', this.slider)
@@ -245,11 +288,58 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.footer {
+    position: absolute;
+    width: 40%;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+}
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 10; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: hidden; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.9); /* Black w/ opacity */
+}
+
+.modal-content {
+    position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    animation-name: zoom;
+    animation-duration: 1s;
+}
+
+@keyframes zoom {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.hello {
+  height: 100%;
+  overflow: hidden;
+}
 .surface {
 	position: absolute;
 	z-index: 2;
     pointer-events: none;
     transition: all .6s ease;
+}
+.surface div img  {
+    pointer-events: all;
 }
 .bottom {
     transition: all .5s ease;
@@ -286,7 +376,7 @@ img {
     left: 0;
     top: 0;
     right: 0;
-    bottom: 32%;
+    bottom: 85%;
     margin: auto;
 }
 .text {
@@ -447,7 +537,6 @@ img {
 .a2 .surface .right img {
     width: 105%;
     margin: 100% 0 0 0;
-    transform: rotate(180deg)
 }
 
 .a2 .text {
@@ -526,6 +615,7 @@ img {
 p {
 	color: white;
 	font-family: 'fzxk';
+    margin: 0;
 }
 h1, h2 {
   font-weight: normal;
