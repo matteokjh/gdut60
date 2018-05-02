@@ -2,6 +2,12 @@
   	<div>
 
   		<div v-for=" (e, idx) in List">
+
+						 
+				<div id="myModal" class="modal"  @click="closeModal()">
+					<img :src="imgSrc" class="modal-content">
+				</div>
+
 				<div :class="['a'+idx, 'box']" :style="{'background-image': 'url('+e.bgUrl+')', 'background-position': '50%'+ bgTop + 'px'}">
 					<p>这里是{{ e.time }}</p>
 
@@ -13,11 +19,9 @@
 						<img  v-for="k in e.rImg" :src="k" alt="" @click="clickImg($event)">
 					</div>
 				</div>
+				
 	 		</div>
-		 
-			<div id="myModal" class="modal">
-				<img :src="imgSrc" class="modal-content" @click="closeModal()">
-			</div>
+
 
   	</div>
 </template>
@@ -193,7 +197,7 @@ body {
   top: 0;
   width: 100%; /* Full width */
   height: 100%; /* Full height */
-  overflow: hidden; /* Enable scroll if needed */
+  overflow: auto; /* Enable scroll if needed */
   background-color: rgb(0, 0, 0); /* Fallback color */
   background-color: rgba(0, 0, 0, 0.9); /* Black w/ opacity */
 }
